@@ -53,8 +53,8 @@ CREATE TABLE Persons3 (
 -- Naming a UNIQUE constraint, and to define a UNIQUE constraint on multiple columns
 CREATE TABLE Persons3 (
     ID int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
     Age int,
     CONSTRAINT UC_Person UNIQUE (ID,LastName)
 );
@@ -77,8 +77,8 @@ DROP INDEX UC_Person;
 -- PRIMARY KEY on CREATE TABLE
 CREATE TABLE Persons4 (
     ID int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
     Age int,
     --PRIMARY KEY (ID)
     CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
@@ -95,3 +95,98 @@ ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
 ALTER TABLE Persons4
 DROP PRIMARY KEY;
 
+-- FOREIGN KEY on CREATE TABLE
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons4(ID)
+);
+
+-- To allow naming of a FOREIGN KEY constraint, and for defining a FOREIGN KEY constraint on multiple columns
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID)
+    REFERENCES Persons4(ID)
+);
+
+-- FOREIGN KEY on ALTER TABLE
+ALTER TABLE Orders
+ADD FOREIGN KEY (PersonID) REFERENCES Persons4(ID);
+
+-- To allow naming of a FOREIGN KEY constraint, and for defining a FOREIGN KEY constraint on multiple columns
+ALTER TABLE Orders
+ADD CONSTRAINT FK_PersonOrder
+FOREIGN KEY (PersonID) REFERENCES Persons4(ID);
+
+-- DROP a FOREIGN KEY Constraint
+ALTER TABLE Orders
+DROP FOREIGN KEY FK_PersonOrder;
+
+-- MySQL CHECK Constraint
+-- CHECK on CREATE TABLE
+CREATE TABLE Persons5 (
+    ID int NOT NULL,
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
+    Age int,
+    CHECK (Age>=18)
+);
+
+-- To allow naming of a CHECK constraint, and for defining a CHECK constraint on multiple columns
+CREATE TABLE Persons5 (
+    ID int NOT NULL,
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
+    Age int,
+    City varchar(255),
+    CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Sandnes')
+);
+
+-- CHECK on ALTER TABLE
+ALTER TABLE Persons5
+ADD CHECK (Age>=18);
+
+-- To allow naming of a CHECK constraint, and for defining a CHECK constraint on multiple columns
+ALTER TABLE Persons5
+ADD CONSTRAINT CHK_PersonAge CHECK (Age>=18 AND City='New York');
+
+-- DROP a CHECK Constraint
+ALTER TABLE Persons5
+DROP CHECK CHK_PersonAge;
+
+-- DEFAULT on CREATE TABLE
+CREATE TABLE Persons6 (
+    ID int NOT NULL,
+    LastName varchar(55),
+    FirstName varchar(55) NOT NULL,
+    Age int,
+    City varchar(50) DEFAULT 'Bagerhat'
+);
+
+-- DEFAULT on ALTER TABLE
+ALTER TABLE Persons6
+ALTER City SET DEFAULT 'Bagerhat';
+
+-- DROP a DEFAULT Constraint
+ALTER TABLE Persons6
+ALTER City DROP DEFAULT;
+
+-- CREATE INDEX Syntax
+CREATE INDEX ind_lastName
+ON Persons6 (LastName);
+
+CREATE INDEX ind_pName
+ON Persons6 (LastName, FirstName);
+
+-- CREATE UNIQUE INDEX Syntax (No duplicate values)
+CREATE UNIQUE INDEX ind_pName
+ON Persons6 (LastName, FirstName);
+
+-- DROP INDEX Statement
+ALTER TABLE Persons6
+DROP INDEX ind_pName;
