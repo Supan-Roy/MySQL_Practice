@@ -190,3 +190,34 @@ ON Persons6 (LastName, FirstName);
 -- DROP INDEX Statement
 ALTER TABLE Persons6
 DROP INDEX ind_pName;
+
+-- AUTO INCREMENT
+CREATE TABLE Persons7 (
+    Personid int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (Personid)
+);
+
+-- To let the AUTO_INCREMENT sequence start with another value
+ALTER TABLE Persons7 AUTO_INCREMENT=10;
+
+-- Working with Dates
+SELECT * FROM Orders WHERE OrderDate='2008-11-11'
+
+-- CREATE VIEW
+CREATE VIEW [Dhaka Customers] AS
+SELECT CustomerName, ContactName
+FROM Customers
+WHERE City = 'Dhaka';
+
+SELECT * FROM [Dhaka Customers];
+
+-- Example
+CREATE VIEW [Products Above Average Price] AS
+SELECT ProductName, Price
+FROM Products
+WHERE Price > (SELECT AVG(Price) FROM Products);
+
+SELECT * FROM [Products Above Average Price];
