@@ -14,7 +14,7 @@ VALUES
 (1, 'Roy', 'Supan', '123 Maple Street', 'Bagerhat'),
 (2, 'Yeager', 'Cade', '456 Oak Avenue', 'Los Angeles'),
 (3, 'Optimus', 'Prime', '7B Casfig Xerlan', 'Cybertron'),
-(4, 'Jesse', 'Eisenberg', '101 River Road', 'Bagerhat'),
+(4, 'Jesse', 'Eisenberg', '101 River Road', 'New York'),
 (5, 'Garfield', 'Andrew', '202 Lake View', 'Toronto');
 
 -- ALTER TABLE - MODIFY COLUMN
