@@ -72,3 +72,57 @@ WHERE Country = 'Mexico';
 
 -- DELETE Statement
 DELETE FROM Customers WHERE CustomerID = 6;
+
+-- LIMIT Clause
+SELECT * FROM Customers
+ORDER BY Country
+LIMIT 3;
+
+-- MIN() and MAX() Functions
+SELECT MAX(CustomerID) AS LongestValue
+FROM Customers;
+
+-- COUNT(), AVG() and SUM() Functions
+SELECT COUNT(CustomerID)
+FROM Customers;
+
+SELECT AVG(CustomerID)
+FROM Customers;
+
+SELECT SUM(CustomerID)
+FROM Customers;
+
+-- LIKE Operator
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'A%';
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_n%';
+
+-- IN Operator
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+
+-- Between
+SELECT * FROM Customers
+WHERE CustomerID BETWEEN 2 AND 4;
+
+-- Aliases
+SELECT CustomerID AS Cid, CustomerName AS Cname
+FROM Customer;
+
+-- GROUP BY
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+-- HAVING
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 1;
