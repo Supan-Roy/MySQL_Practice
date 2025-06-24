@@ -19,7 +19,7 @@ VALUES
 (6, 'Supan Roy', 'Jonathan Byers', '223 University Ave', 'Dhaka', '1219', 'Bangladesh');
 
 
--- SELECT Colums
+-- SELECT Columns
 SELECT CustomerName, City, Country FROM Customers;
 
 -- SELECT DISTINCT Values
