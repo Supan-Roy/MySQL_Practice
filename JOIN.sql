@@ -42,6 +42,7 @@ INSERT INTO Student (student_id, name, course_id) VALUES
 (8, 'digonto', NULL), 
 (9, 'Shayan', 104), 
 (10, 'Sourav', 105);
+
 -- Inserting Data into Teacher Table
 INSERT INTO Teacher (teacher_id, name, course_id) VALUES
 (1, 'Dr. Watson', 101),
