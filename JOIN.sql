@@ -31,12 +31,24 @@ INSERT INTO Course (course_id, course_name) VALUES
 (105, 'Chemistry');
 
 -- Inserting Data into Student Table
+INSERT INTO Student (student_id, name, course_id) VALUES 
+(1, 'Supan', 101), 
+(2, 'Tamim', 102), 
+(3, 'Junayed', 103), 
+(4, 'Noman', NULL), 
+(5, 'Richil', 101), 
+(6, 'Jenny', 102), 
+(7, 'Tajim', 103), 
+(8, 'digonto', NULL), 
+(9, 'Shayan', 104), 
+(10, 'Sourav', 105);
+-- Inserting Data into Teacher Table
 INSERT INTO Teacher (teacher_id, name, course_id) VALUES
-(1, 'Dr. Smith', 101),
-(2, 'Prof. Johnson', 102),
-(3, 'Dr. Brown', 103),
+(1, 'Dr. Watson', 101),
+(2, 'Prof. Jonathan', 102),
+(3, 'Dr. Byers', 103),
 (4, 'Prof. Williams', 104),
-(5, 'Dr. Taylor', NULL);
+(5, 'Prof. Shonku', NULL);
 
 -- 1. INNER JOIN: List students with their courses
 SELECT s.name, c.course_name
