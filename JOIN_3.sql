@@ -102,3 +102,84 @@ FROM Students s
 JOIN Enrollments e ON s.student_id = e.student_id AND e.grade = 'A'
 JOIN Courses c ON e.course_id = c.course_id AND c.course_name = 'Database Systems'
 WHERE s.department = 'CSE';
+
+-- UPDATING TABLES
+-- Add columns to Students
+ALTER TABLE Students
+ADD email VARCHAR(100) NULL,
+ADD admission_year INT;
+
+-- Add columns to Courses
+ALTER TABLE Courses
+ADD department VARCHAR(50),
+ADD prerequisite_course_id INT NULL;
+
+-- Add columns to Enrollments
+ALTER TABLE Enrollments
+ADD enroll_date DATE,
+ADD remarks VARCHAR(255) NULL;
+
+-- Update Students with new data
+UPDATE Students SET 
+    email = 'alice@university.edu', admission_year = 2023 WHERE student_id = 1;
+UPDATE Students SET 
+    email = 'bob@university.edu', admission_year = 2022 WHERE student_id = 2;
+UPDATE Students SET 
+    email = NULL, admission_year = 2023 WHERE student_id = 3; -- NULL email
+UPDATE Students SET 
+    email = 'diana@university.edu', admission_year = 2024 WHERE student_id = 4;
+
+-- Update Courses
+UPDATE Courses SET 
+    department = 'CSE', prerequisite_course_id = NULL WHERE course_id = 101;
+UPDATE Courses SET 
+    department = 'CSE', prerequisite_course_id = 101 WHERE course_id = 102;
+UPDATE Courses SET 
+    department = 'BBA', prerequisite_course_id = NULL WHERE course_id = 103;
+
+-- Update Enrollments
+UPDATE Enrollments SET 
+    enroll_date = '2025-02-15', remarks = 'Excellent' WHERE enrollment_id = 1;
+UPDATE Enrollments SET 
+    enroll_date = '2025-03-01', remarks = NULL WHERE enrollment_id = 2;
+UPDATE Enrollments SET 
+    enroll_date = '2025-01-20', remarks = 'Good' WHERE enrollment_id = 3;
+UPDATE Enrollments SET 
+    enroll_date = '2025-04-10', remarks = NULL WHERE enrollment_id = 4; 
+UPDATE Enrollments SET 
+    enroll_date = '2025-02-28', remarks = 'Outstanding' WHERE enrollment_id = 5;
+
+SELECT * FROM students;
+-- MORE JOIN OPERATIONS
+
+-- Students Without Email, along with any courses they may have taken.
+SELECT s.student_name, s.email, c.course_name
+FROM Students s
+LEFT JOIN Enrollments e ON s.student_id = e.student_id
+LEFT JOIN Courses c ON e.course_id = c.course_id
+WHERE s.email IS NULL;
+
+-- Finds CSE courses taken in first quarter of 2025
+SELECT s.student_name, c.course_name, e.enroll_date
+FROM Students s
+JOIN Enrollments e ON s.student_id = e.student_id
+JOIN Courses c ON e.course_id = c.course_id
+WHERE c.department = 'CSE'
+  AND e.enroll_date BETWEEN '2025-01-01' AND '2025-03-31';
+
+-- Shows each course with its prerequisite (if any)
+SELECT c.course_name AS Course, p.course_name AS Prerequisite
+FROM Courses c
+LEFT JOIN Courses p ON c.prerequisite_course_id = p.course_id;
+
+-- Only A or B+ grades, At least some extra info (remarks or email), Courses must have 3 or more credits
+SELECT s.student_name, c.course_name, e.grade, e.remarks
+FROM Students s
+JOIN Enrollments e 
+    ON s.student_id = e.student_id 
+    AND (e.grade = 'A' OR e.grade = 'B+')
+JOIN Courses c 
+    ON e.course_id = c.course_id
+WHERE (e.remarks IS NOT NULL OR s.email IS NOT NULL)
+  AND c.credits >= 3
+ORDER BY s.student_name;
