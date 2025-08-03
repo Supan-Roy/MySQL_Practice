@@ -1,4 +1,4 @@
-CREATE DATABASE joinreturns
+CREATE DATABASE joinreturns;
 USE joinreturns;
 -- Create the students table
 CREATE TABLE students (
