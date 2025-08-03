@@ -183,3 +183,30 @@ JOIN Courses c
 WHERE (e.remarks IS NOT NULL OR s.email IS NOT NULL)
   AND c.credits >= 3
 ORDER BY s.student_name;
+
+-- Show classmates from the same department
+SELECT s1.student_name AS Student1, 
+       s2.student_name AS Student2, 
+       s1.department
+FROM Students s1
+JOIN Students s2 
+    ON s1.department = s2.department
+   AND s1.student_id < s2.student_id;
+
+-- ourses with the Same Department but Different IDs
+SELECT c1.course_name AS Course1, 
+       c2.course_name AS Course2, 
+       c1.department
+FROM Courses c1
+JOIN Courses c2 
+    ON c1.department = c2.department
+   AND c1.course_id < c2.course_id;
+
+-- Students Sharing the Same Admission Year
+SELECT s1.student_name AS Student1, 
+       s2.student_name AS Student2, 
+       s1.admission_year
+FROM Students s1
+JOIN Students s2 
+    ON s1.admission_year = s2.admission_year
+   AND s1.student_id < s2.student_id;
